@@ -1,0 +1,22 @@
+version: "3"
+services:
+  justreet:
+    image: deploy_justreet
+    container_name: justreet
+    build:
+      context: .
+      dockerfile: Dockerfile
+    runtime: nvidia
+    shm_size: "8gb"
+    ulimits:
+      memlock: -1
+      stack: 67108864
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:ro
+    environment:
+      - DISPLAY=$DISPLAY
+    # network_mode: "host"
+    tty: true
+    ports: 
+      - 8888:8888
+    # command: python app.py
